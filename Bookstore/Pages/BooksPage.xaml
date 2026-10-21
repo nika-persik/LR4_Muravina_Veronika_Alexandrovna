@@ -1,0 +1,66 @@
+﻿<Page x:Class="Bookstore.Pages.BooksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Bookstore.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Каталог книг"
+      Loaded="Page_Loaded">
+
+    <Grid Background="#F9F9F9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Background="#007ACC" Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock x:Name="RoleTextBlock" Text="Роль: " Foreground="White" FontSize="16" FontWeight="Bold" Margin="15 0"/>
+            <Button x:Name="BtnBasket" Content="Корзина" Click="BtnBasket_Click" Width="100" Height="28" Margin="5 0" Background="Orange"/>
+            <Button x:Name="BtnOrders" Content="Заказы клиентов" Click="BtnOrders_Click" Width="130" Height="28" Margin="5 0"/>
+            <Button x:Name="BtnAddBook" Content="Добавить книгу" Click="BtnAddBook_Click" Width="130" Height="28" Margin="5 0" Background="#73d990"/>
+            <Button Content="Выйти" Click="BtnExit_Click" Width="80" Height="28" Margin="5 0" Background="#DC3545" Foreground="White"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Поиск: " FontSize="14" VerticalAlignment="Center"/>
+            <TextBox x:Name="TboxSearch" Width="200" Height="28" TextChanged="TboxSearch_TextChanged" Margin="5 0 20 0"/>
+
+            <TextBlock Text="Жанр: " FontSize="14" VerticalAlignment="Center"/>
+            <ComboBox x:Name="ComboGenre" Width="180" Height="28" SelectionChanged="ComboGenre_SelectionChanged"/>
+        </StackPanel>
+
+        <DataGrid x:Name="BooksDataGrid" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" Margin="15">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="2*"/>
+                <DataGridTextColumn Header="Автор" Binding="{Binding Authors.FullName}" Width="2*"/>
+                <DataGridTextColumn Header="Жанр" Binding="{Binding Genres.Name}" Width="1.5*"/>
+                <DataGridTextColumn Header="Год" Binding="{Binding Year_of_publication}" Width="1*"/>
+                <DataGridTextColumn Header="Цена (руб.)" Binding="{Binding Price}" Width="1*"/>
+                <DataGridTextColumn Header="На складе" Binding="{Binding Stock_quantity}" Width="1*"/>
+
+                <DataGridTemplateColumn x:Name="ColumnBasket" Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="В корзину" Click="BtnToBasket_Click" Margin="2" Height="25" Background="Orange"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn x:Name="ColumnAction" Width="140">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Редакт." x:Name="BtnEdit" Click="BtnEdit_Click" Margin="2" Height="25" Background="#73d990"/>
+                                <Button Content="Удалить" x:Name="BtnDel" Click="BtnDel_Click" Margin="2" Height="25" Background="Red" Foreground="White"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>
